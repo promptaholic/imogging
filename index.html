@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>iMogging — AI that runs your protocol</title>
-  <meta name="description" content="your own AI coach on telegram. checks in daily. knows your biology. flags when you drift. 10 founding spots at $150/mo.">
-  <meta property="og:title" content="iMogging — AI that runs your protocol">
-  <meta property="og:description" content="personalized AI coaching that checks in daily on Telegram. 10 founding spots.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://imogging.com">
-  <!-- META PIXEL: Replace YOUR_PIXEL_ID with your actual Meta Pixel ID -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iMogging — biological operating system</title>
+  <meta name="description" content="your own AI coach on telegram. checks in daily. knows your biology. flags when you drift. 10 founding spots at $50/mo." />
+  <meta property="og:title" content="iMogging — biological operating system" />
+  <meta property="og:description" content="personalized AI coaching that checks in daily on Telegram. 10 founding spots." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://imogging.com" />
+
+  <!-- META PIXEL: Replace YOUR_PIXEL_ID with your actual Meta Pixel ID, then uncomment -->
   <!--
   <script>
   !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -21,122 +22,446 @@
   fbq('track', 'PageView');
   </script>
   -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Martian+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    :root{--bg:#050505;--text:#e2e2e2;--dim:#7a7a7a;--accent:#4ade80;--accent-dim:rgba(74,222,128,0.15);--border:#1a1a1a;--mono:'IBM Plex Mono',monospace}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+    :root{
+      --bg:#050706;
+      --panel:#0a0f0b;
+      --panel2:#0e140f;
+      --line:#16241a;
+      --line2:#1f3325;
+      --green:#22ff7a;        /* matrix phosphor */
+      --green-dim:#4fbf83;    /* readable labels + subtle borders */
+      --green-soft:rgba(34,255,122,0.09);
+      --green-glow:rgba(34,255,122,0.20);
+      --text:#dcf3e2;
+      --muted:#8fb89c;
+      --muted2:#5f7e69;
+      --alert:#ff5d4d;
+      --mono:'Martian Mono',ui-monospace,monospace;
+      --body:'Archivo',sans-serif;
+    }
+
     html{scroll-behavior:smooth}
-    body{font-family:var(--mono);background:var(--bg);color:var(--text);font-size:15px;line-height:1.8;-webkit-font-smoothing:antialiased}
-    .wrap{max-width:680px;margin:0 auto;padding:0 24px}
-    section{padding:80px 0;border-bottom:1px solid var(--border)}
-    h1{font-size:clamp(28px,5vw,42px);line-height:1.2;font-weight:600;letter-spacing:-0.02em}
-    h2{font-size:20px;font-weight:600;margin-bottom:24px}
-    .dim{color:var(--dim)}
-    .accent{color:var(--accent)}
-    .btn{display:inline-block;background:var(--accent);color:#050505;padding:16px 32px;font-family:var(--mono);font-size:14px;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:opacity 0.2s}
-    .btn:hover{opacity:0.85}
-    .spots{display:inline-block;background:var(--accent-dim);color:var(--accent);padding:6px 14px;font-size:12px;font-weight:500;margin-bottom:24px}
-    .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:32px 0}
-    .stat{background:#0a0a0a;border:1px solid var(--border);padding:20px}
-    .stat-num{font-size:28px;font-weight:600;color:var(--accent)}
-    .stat-label{font-size:12px;color:var(--dim);margin-top:4px}
-    .step{margin-bottom:32px}
-    .step-num{display:inline-block;background:var(--accent);color:#050505;width:28px;height:28px;text-align:center;line-height:28px;font-size:13px;font-weight:600;margin-bottom:8px}
-    .step h3{font-size:16px;font-weight:600;margin-bottom:6px}
-    .step p{color:var(--dim);font-size:14px}
-    .feature-list{list-style:none}
-    .feature-list li{padding:12px 0;border-bottom:1px solid var(--border);font-size:14px}
-    .feature-list li::before{content:">";color:var(--accent);margin-right:12px;font-weight:600}
-    .price-card{background:#0a0a0a;border:2px solid var(--accent);padding:40px;text-align:center;margin:32px 0}
-    .price-amount{font-size:48px;font-weight:600}
-    .price-period{color:var(--dim);font-size:14px}
-    .price-note{color:var(--accent);font-size:13px;margin-top:12px}
-    .faq-item{margin-bottom:24px}
-    .faq-q{font-weight:600;font-size:14px;margin-bottom:6px}
-    .faq-a{color:var(--dim);font-size:14px}
-    footer{padding:40px 0;text-align:center;color:var(--dim);font-size:12px}
-    @media(max-width:480px){.stat-grid{grid-template-columns:1fr}section{padding:60px 0}}
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:var(--body);
+      font-size:16px;
+      line-height:1.65;
+      -webkit-font-smoothing:antialiased;
+      position:relative;
+      overflow-x:hidden;
+    }
+
+    /* instrument grid + scanline atmosphere */
+    body::before{
+      content:'';
+      position:fixed;inset:0;z-index:0;pointer-events:none;
+      background-image:
+        linear-gradient(rgba(34,255,122,0.03) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(34,255,122,0.03) 1px,transparent 1px);
+      background-size:48px 48px;
+      mask-image:radial-gradient(ellipse 100% 80% at 50% 0%,#000 30%,transparent 90%);
+    }
+    body::after{
+      content:'';
+      position:fixed;inset:0;z-index:1;pointer-events:none;
+      background:repeating-linear-gradient(0deg,rgba(0,0,0,0)0px,rgba(0,0,0,0)2px,rgba(0,0,0,0.12)3px);
+      opacity:.4;mix-blend-mode:multiply;
+    }
+
+    .wrap{max-width:1040px;margin:0 auto;padding:0 28px;position:relative;z-index:2}
+
+    /* ---------- type helpers ---------- */
+    .mono{font-family:var(--mono)}
+    .lbl{
+      font-family:var(--mono);font-size:11.5px;font-weight:600;
+      letter-spacing:.2em;text-transform:uppercase;color:var(--green-dim);
+    }
+    .green{color:var(--green)}
+    .alert{color:var(--alert)}
+    .num{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+    /* ---------- nav ---------- */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:50;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:16px 28px;
+      background:rgba(5,7,6,0.82);backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .brand{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--text)}
+    .brand span{color:var(--green)}
+    .nav-right{display:flex;align-items:center;gap:18px}
+    .live{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:7px}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 9px var(--green);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+    .btn{
+      font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.04em;
+      color:var(--bg);background:var(--green);text-decoration:none;
+      padding:10px 18px;border:1px solid var(--green);
+      transition:background .15s,box-shadow .15s;white-space:nowrap;
+    }
+    .btn:hover{background:#5fff9e;box-shadow:0 0 22px var(--green-glow)}
+    @media(max-width:560px){.live{display:none}}
+
+    /* ---------- registration-tick frame ---------- */
+    .frame{position:relative;border:1px solid var(--line)}
+    .frame::before,.frame::after{content:'';position:absolute;width:11px;height:11px;pointer-events:none}
+    .frame::before{top:-1px;left:-1px;border-top:1px solid var(--green);border-left:1px solid var(--green)}
+    .frame::after{bottom:-1px;right:-1px;border-bottom:1px solid var(--green);border-right:1px solid var(--green)}
+
+    /* ---------- hero ---------- */
+    .hero{position:relative;padding:150px 0 90px;overflow:hidden}
+    .hero-glow{
+      position:absolute;top:-10%;left:50%;transform:translateX(-50%);
+      width:760px;height:620px;z-index:0;pointer-events:none;
+      background:radial-gradient(ellipse at center,var(--green-glow)0%,transparent 65%);
+    }
+    .hero .wrap{display:grid;grid-template-columns:1fr;gap:34px}
+
+    .tag{
+      display:inline-flex;align-items:center;gap:10px;align-self:flex-start;
+      font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--green);padding:7px 14px;border:1px solid var(--green-dim);background:var(--green-soft);
+    }
+    h1{
+      font-family:var(--mono);font-weight:600;
+      font-size:clamp(30px,5.4vw,62px);line-height:1.12;letter-spacing:-.035em;
+      max-width:16ch;
+    }
+    h1 .hl{color:var(--green)}
+    .caret{display:inline-block;width:.5ch;height:1em;background:var(--green);transform:translateY(.12em);margin-left:.06em;animation:blink 1.05s step-end infinite}
+    @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+    .hero-sub{font-size:clamp(15px,1.9vw,18px);color:var(--muted);max-width:52ch;line-height:1.7}
+    .hero-sub b{color:var(--text);font-weight:600}
+
+    /* hero readout strip */
+    .readout{background:var(--panel);padding:20px 22px}
+    .readout-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}
+    .readout-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px}
+    .ro{display:flex;flex-direction:column;gap:5px}
+    .ro-val{display:flex;align-items:baseline;gap:9px;font-family:var(--mono);font-size:clamp(20px,3.2vw,28px);font-weight:600;letter-spacing:-.02em}
+    .ro-val .from{color:var(--muted2);font-size:.62em}
+    .ro-val .arrow{color:var(--green-dim);font-size:.62em}
+    .ro-val .to{color:var(--green)}
+    .ro-delta{font-family:var(--mono);font-size:11.5px;font-weight:600;color:var(--green)}
+    .ekg{margin-top:18px;width:100%;height:34px;display:block}
+    .ekg path{fill:none;stroke:var(--green);stroke-width:1.4;stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.6s ease-out .3s forwards}
+    @keyframes draw{to{stroke-dashoffset:0}}
+
+    .hero-cta{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+    .cta-link{
+      font-family:var(--mono);font-size:14px;font-weight:600;letter-spacing:.02em;
+      color:var(--bg);background:var(--green);text-decoration:none;padding:15px 28px;
+      border:1px solid var(--green);transition:box-shadow .18s,background .18s;
+    }
+    .cta-link:hover{background:#5fff9e;box-shadow:0 0 30px var(--green-glow)}
+    .cta-note{font-family:var(--mono);font-size:12px;letter-spacing:.03em;color:var(--muted)}
+
+    /* ---------- section scaffold ---------- */
+    section{padding:80px 0;position:relative;z-index:2}
+    .sec-label{display:flex;align-items:center;gap:16px;margin-bottom:34px}
+    .sec-label .line{flex:1;height:1px;background:var(--line2)}
+    .sec-title{font-family:var(--mono);font-size:clamp(22px,3.4vw,34px);font-weight:600;letter-spacing:-.03em;line-height:1.15;margin-bottom:14px}
+    .sec-intro{color:var(--muted);max-width:56ch;font-size:16px}
+
+    /* receipts */
+    .receipts{background:var(--panel);padding:30px}
+    .rcpt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+    .rcpt{background:var(--panel);padding:22px 18px}
+    .rcpt .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+    .rcpt .v{font-family:var(--mono);font-size:clamp(26px,4vw,40px);font-weight:600;color:var(--green);letter-spacing:-.03em;line-height:1}
+    .rcpt.base .v{color:var(--text)}
+    .rcpt .sub{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:9px}
+    .rcpt-foot{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:18px;letter-spacing:.02em}
+    @media(max-width:680px){.rcpt-grid{grid-template-columns:1fr 1fr}}
+
+    /* origin log */
+    .log{border-left:1px solid var(--line2);margin-left:6px}
+    .log-row{display:grid;grid-template-columns:140px 1fr;gap:20px;padding:16px 0 16px 26px;position:relative;border-bottom:1px dashed var(--line)}
+    .log-row:last-child{border-bottom:none}
+    .log-row::before{content:'';position:absolute;left:-4px;top:24px;width:7px;height:7px;background:var(--bg);border:1px solid var(--green-dim)}
+    .log-row.now::before{background:var(--green);border-color:var(--green);box-shadow:0 0 9px var(--green)}
+    .log-ts{font-family:var(--mono);font-size:12px;color:var(--green);letter-spacing:.02em;white-space:nowrap}
+    .log-txt{color:var(--muted);font-size:15px;line-height:1.55}
+    .log-txt b{color:var(--text);font-weight:600}
+    @media(max-width:560px){.log-row{grid-template-columns:1fr;gap:4px}}
+
+    /* modules */
+    .mods{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .mod{background:var(--panel);padding:26px;position:relative;overflow:hidden;transition:border-color .2s}
+    .mod:hover{border-color:var(--green-dim)}
+    .mod::after{content:'';position:absolute;top:0;left:-60%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(34,255,122,0.07),transparent);transition:left .5s}
+    .mod:hover::after{left:120%}
+    .mod-id{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--green-dim);margin-bottom:14px}
+    .mod-t{font-family:var(--mono);font-size:15px;font-weight:600;letter-spacing:-.01em;margin-bottom:9px}
+    .mod-b{font-size:14.5px;color:var(--muted);line-height:1.6}
+    @media(max-width:680px){.mods{grid-template-columns:1fr}}
+
+    /* quote */
+    .quote{background:var(--panel);padding:60px 40px;text-align:center}
+    blockquote{font-family:var(--mono);font-size:clamp(18px,2.8vw,28px);font-weight:500;line-height:1.4;letter-spacing:-.02em;max-width:24ch;margin:0 auto 18px}
+    blockquote .green{color:var(--green)}
+    .q-attr{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted)}
+
+    /* manifest */
+    .manifest{display:flex;flex-direction:column}
+    .mf{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:15px 0;border-bottom:1px solid var(--line);align-items:start}
+    .mf:last-child{border-bottom:none}
+    .mf .mk{font-family:var(--mono);color:var(--green);font-size:14px;line-height:1.5}
+    .mf .mt{font-size:15px;line-height:1.5}
+    .mf .mt b{color:var(--text);font-weight:600}
+    .mf .mt span{color:var(--muted)}
+
+    /* faq */
+    .faq-item{padding:22px 0;border-bottom:1px solid var(--line)}
+    .faq-q{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;display:flex;gap:10px}
+    .faq-q::before{content:'?';color:var(--green)}
+    .faq-a{color:var(--muted);font-size:15px;line-height:1.6;padding-left:24px}
+
+    /* cta console */
+    .console{background:var(--panel);padding:48px 40px;text-align:center;max-width:620px;margin:0 auto}
+    .console h2{font-family:var(--mono);font-size:clamp(22px,3.4vw,30px);font-weight:600;letter-spacing:-.03em;margin-bottom:18px}
+    .price{font-family:var(--mono);margin:24px 0 6px;display:flex;align-items:baseline;justify-content:center;gap:12px;flex-wrap:wrap}
+    .price .big{font-size:clamp(44px,8vw,64px);font-weight:700;color:var(--green);letter-spacing:-.04em;line-height:1}
+    .price .per{font-size:14px;color:var(--muted)}
+    .price .then{font-size:12px;color:var(--muted);letter-spacing:.02em}
+    .console .desc{color:var(--muted);font-size:15px;max-width:44ch;margin:0 auto 28px;line-height:1.65}
+    .console .cta-link{display:inline-block;width:100%;text-align:center}
+    .console .sub{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:16px;letter-spacing:.03em}
+
+    /* footer */
+    footer{border-top:1px solid var(--line);padding:46px 0;text-align:center;position:relative;z-index:2}
+    .f-brand{font-family:var(--mono);font-weight:700;font-size:16px;color:var(--text);margin-bottom:8px}
+    .f-brand span{color:var(--green)}
+    .f-tag{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+    .f-links{display:flex;justify-content:center;gap:22px;margin-top:18px}
+    .f-links a{font-family:var(--mono);font-size:12.5px;color:var(--muted);text-decoration:none;letter-spacing:.02em}
+    .f-links a:hover{color:var(--green)}
+    .disclaimer{max-width:560px;margin:24px auto 0;font-size:12px;color:var(--muted);line-height:1.65}
+    .f-copy{font-family:var(--mono);font-size:11px;color:var(--muted2);margin-top:22px;letter-spacing:.06em}
+
+    /* reveal-on-load */
+    .reveal{opacity:0;transform:translateY(14px);animation:reveal .7s cubic-bezier(.2,.7,.2,1) forwards}
+    @keyframes reveal{to{opacity:1;transform:none}}
+
+    @media(prefers-reduced-motion:reduce){
+      *{animation:none!important}
+      .reveal{opacity:1;transform:none}
+      .ekg path{stroke-dashoffset:0}
+      .caret{opacity:1}
+    }
+    @media(max-width:560px){nav{padding:14px 18px}section{padding:60px 0}.console,.quote,.receipts{padding-left:24px;padding-right:24px}}
   </style>
 </head>
 <body>
 
-<section style="padding-top:120px">
-  <div class="wrap">
-    <div class="spots">10 founding spots</div>
-    <h1>what if your body had an AI running your protocol 24/7</h1>
-    <p style="margin:24px 0;color:var(--dim);max-width:520px">i built the system. tested it on myself for 121 days. went from 187 lbs / 22.7% body fat to 172 lbs / 12.1%. now i'm opening it to 10 people.</p>
-    <a href="https://calendly.com/YOUR_LINK/imogging-call" class="btn">book a 15-min call</a>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <h2>the receipts</h2>
-    <div class="stat-grid">
-      <div class="stat"><div class="stat-num">187.4</div><div class="stat-label">starting weight (lbs) jan 8</div></div>
-      <div class="stat"><div class="stat-num">172</div><div class="stat-label">current weight (lbs) day 121+</div></div>
-      <div class="stat"><div class="stat-num">22.7%</div><div class="stat-label">starting body fat</div></div>
-      <div class="stat"><div class="stat-num">12.1%</div><div class="stat-label">current body fat</div></div>
+  <!-- NAV -->
+  <nav>
+    <div class="brand">i<span>Mogging</span></div>
+    <div class="nav-right">
+      <div class="live"><span class="dot"></span>system online</div>
+      <a href="#book" class="btn">book your call</a>
     </div>
-    <p class="dim" style="font-size:13px">evolt 360 scan data. no filters. no estimates. just numbers.</p>
-  </div>
-</section>
+  </nav>
 
-<section>
-  <div class="wrap">
-    <h2>how it works</h2>
-    <div class="step"><div class="step-num">1</div><h3>book a 15-min call</h3><p>we talk about where you are, where you want to be, and whether AI coaching is right for you. no pitch. just qualifying.</p></div>
-    <div class="step"><div class="step-num">2</div><h3>get your AI coach</h3><p>your own personalized agent on telegram. it knows your weight, goals, training, supplements, and protocols. built specifically for your biology.</p></div>
-    <div class="step"><div class="step-num">3</div><h3>get coached daily</h3><p>every day your AI checks in. tracks your training, nutrition, sleep, protocol adherence. flags drift before it becomes a habit. escalates to me when human judgment is needed.</p></div>
-  </div>
-</section>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-glow"></div>
+    <div class="wrap">
+      <div class="tag reveal" style="animation-delay:.05s">day 121 · ironman 70.3</div>
 
-<section>
-  <div class="wrap">
-    <h2>what you get</h2>
-    <ul class="feature-list">
-      <li>personalized AI coach on telegram that knows your biology</li>
-      <li>daily check-ins on training, nutrition, sleep, protocol adherence</li>
-      <li>protocol drift detection before missed sessions compound</li>
-      <li>biometric-aware recommendations, not generic advice</li>
-      <li>weekly progress summaries compiled automatically</li>
-      <li>direct escalation to logan for judgment calls</li>
-      <li>zero busywork. the AI handles the system. you just show up.</li>
-    </ul>
-  </div>
-</section>
+      <h1 class="reveal" style="animation-delay:.12s">i treated my body like a <span class="hl">large language model</span><span class="caret"></span></h1>
 
-<section>
-  <div class="wrap">
-    <h2>founding cohort</h2>
-    <div class="price-card">
-      <div class="price-amount">$50<span class="price-period">/mo</span></div>
-      <div class="price-note">founding rate for the first 10. goes to $150 after cohort 1 fills. we take 10 at a time.</div>
-      <a href="https://calendly.com/YOUR_LINK/imogging-call" class="btn" style="margin-top:24px">book your call</a>
+      <p class="hero-sub reveal" style="animation-delay:.2s">recursive optimization. biological fine-tuning. protocol adjustments off real data, not vibes. <b>121 days documented in real time.</b> now opening it to 10 people.</p>
+
+      <div class="readout frame reveal" style="animation-delay:.28s">
+        <div class="readout-head">
+          <span class="lbl">// biological_os · live readout</span>
+          <span class="lbl green">evolt 360</span>
+        </div>
+        <div class="readout-grid">
+          <div class="ro">
+            <span class="lbl">body_fat</span>
+            <div class="ro-val"><span class="from num">22.7%</span><span class="arrow">▸</span><span class="to num" data-count-to="12.1" data-count-from="22.7" data-dec="1" data-suffix="%">12.1%</span></div>
+            <span class="ro-delta">▼ -10.6 pts</span>
+          </div>
+          <div class="ro">
+            <span class="lbl">mass_lbs</span>
+            <div class="ro-val"><span class="from num">187.4</span><span class="arrow">▸</span><span class="to num" data-count-to="172" data-count-from="187.4" data-dec="0">172</span></div>
+            <span class="ro-delta">▼ -15.4 lbs</span>
+          </div>
+        </div>
+        <svg class="ekg" viewBox="0 0 600 34" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0,17 L150,17 L165,17 L175,4 L186,30 L196,17 L330,17 L345,17 L356,9 L368,26 L378,17 L600,17"/>
+        </svg>
+      </div>
+
+      <div class="hero-cta reveal" style="animation-delay:.36s">
+        <a href="#book" class="cta-link">▸ book a 15-min call</a>
+        <span class="cta-note">10 founding spots. this is not a fitness app.</span>
+      </div>
     </div>
-    <p class="dim" style="font-size:13px;text-align:center">qualification call required. this isn't for everyone and that's the point.</p>
-  </div>
-</section>
+  </header>
 
-<section>
-  <div class="wrap">
-    <h2>questions</h2>
-    <div class="faq-item"><div class="faq-q">is this a chatbot?</div><div class="faq-a">no. it's a personalized AI agent built on your actual health data. it knows your bloodwork, your body composition, your protocols. it doesn't give generic answers. it gives YOUR answers.</div></div>
-    <div class="faq-item"><div class="faq-q">do i need to know anything about AI?</div><div class="faq-a">no. you text it on telegram like you'd text a friend. it handles the complexity.</div></div>
-    <div class="faq-item"><div class="faq-q">what if i have a medical question?</div><div class="faq-a">the AI doesn't give medical advice. anything clinical gets escalated to you and your physician. this is coaching, not healthcare.</div></div>
-    <div class="faq-item"><div class="faq-q">can i cancel anytime?</div><div class="faq-a">yes. no contracts. no guilt trips. if it's not working, you leave.</div></div>
-  </div>
-</section>
+  <!-- RECEIPTS -->
+  <section>
+    <div class="wrap">
+      <div class="sec-label"><span class="lbl">// 01 — the receipts</span><span class="line"></span></div>
+      <h2 class="sec-title">no filters. no estimates. just numbers.</h2>
+      <p class="sec-intro" style="margin-bottom:28px">i show receipts, not claims. this is scan data — start to now.</p>
+      <div class="receipts frame">
+        <div class="rcpt-grid">
+          <div class="rcpt base"><div class="k">start weight · jan 8</div><div class="v num" data-count-to="187.4" data-dec="1">187.4</div><div class="sub">lbs</div></div>
+          <div class="rcpt"><div class="k">now · day 121+</div><div class="v num" data-count-to="172" data-dec="0">172</div><div class="sub">lbs ▼ -15.4</div></div>
+          <div class="rcpt base"><div class="k">start body fat</div><div class="v num" data-count-to="22.7" data-dec="1" data-suffix="%">22.7%</div><div class="sub">jan 8 baseline</div></div>
+          <div class="rcpt"><div class="k">now body fat</div><div class="v num" data-count-to="12.1" data-dec="1" data-suffix="%">12.1%</div><div class="sub">▼ -10.6 pts</div></div>
+        </div>
+        <div class="rcpt-foot">evolt 360 scan data. no filters. no estimates. just numbers.</div>
+      </div>
+    </div>
+  </section>
 
-<section style="text-align:center;border-bottom:none">
-  <div class="wrap">
-    <h2>10 spots. $150/mo. your move.</h2>
-    <a href="https://calendly.com/YOUR_LINK/imogging-call" class="btn" style="margin-top:16px">book a 15-min call</a>
-  </div>
-</section>
+  <!-- ORIGIN -->
+  <section>
+    <div class="wrap">
+      <div class="sec-label"><span class="lbl">// 02 — the origin</span><span class="line"></span></div>
+      <h2 class="sec-title">this started as a personal experiment.</h2>
+      <p class="sec-intro" style="margin-bottom:30px">i did what any rational person would do — uploaded my entire biology into an AI and let it coach me. the log:</p>
+      <div class="log">
+        <div class="log-row"><div class="log-ts">2026.01.01</div><div class="log-txt"><b>got sober.</b> day zero. redirected everything into the protocol.</div></div>
+        <div class="log-row"><div class="log-ts">2026.01.07</div><div class="log-txt"><b>walked into the gym.</b> frio pollo. first day back.</div></div>
+        <div class="log-row"><div class="log-ts">2026.01.08</div><div class="log-txt"><b>evolt 360 body scan.</b> 187.4 lbs, 22.7% body fat. baseline locked in.</div></div>
+        <div class="log-row"><div class="log-ts">2026.01.09</div><div class="log-txt"><b>uploaded my biology into AI.</b> bloodwork, body scan, goals, history — built an agent named Moggan that knows all of it.</div></div>
+        <div class="log-row now"><div class="log-ts green">day 121+</div><div class="log-txt"><b>172 lbs. 12.1% body fat. the system works.</b> now training for ironman 70.3 and opening it to 10 people.</div></div>
+      </div>
+    </div>
+  </section>
 
-<footer><div class="wrap">imogging.com built by logan wall<br><br><span style="font-size:11px">iMogging is coaching, not medical care. nothing here is medical advice. consult your physician before changing your training, nutrition, supplement, or any protocol.</span></div></footer>
+  <!-- HOW IT WORKS -->
+  <section>
+    <div class="wrap">
+      <div class="sec-label"><span class="lbl">// 03 — how it works</span><span class="line"></span></div>
+      <h2 class="sec-title">your own AI coach. built on your biology.</h2>
+      <p class="sec-intro" style="margin-bottom:32px">not a generic app. not a template. a personalized agent built around your data — four layers.</p>
+      <div class="mods">
+        <div class="mod frame"><span class="mod-id">[ layer 01 ]</span><div class="mod-t">the data layer</div><div class="mod-b">bloodwork. body scan. goals. training history. injuries. your agent knows all of it before day one. most people talk to a blank wall — you bring a data layer.</div></div>
+        <div class="mod frame"><span class="mod-id">[ layer 02 ]</span><div class="mod-t">the intelligence layer</div><div class="mod-b">it texts you first. every morning, before you even pick up your phone. checks in, reads yesterday's data, adjusts your protocol in real time.</div></div>
+        <div class="mod frame"><span class="mod-id">[ layer 03 ]</span><div class="mod-t">protocol drift detection</div><div class="mod-b">missed a check-in? it flags it. drifting off protocol? it catches it before it becomes a habit. every data point feeds the optimization loop.</div></div>
+        <div class="mod frame"><span class="mod-id">[ layer 04 ]</span><div class="mod-t">the human layer</div><div class="mod-b">a weekly voice note from Logan. every sunday, real feedback on your real data. the AI runs daily ops. the human sets direction.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section style="padding-top:20px">
+    <div class="wrap">
+      <div class="quote frame">
+        <blockquote>this isn't automation. it's an <span class="green">intelligence layer</span> on top of your biology.</blockquote>
+        <div class="q-attr">— logan wall · @logmogs</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET -->
+  <section>
+    <div class="wrap">
+      <div class="sec-label"><span class="lbl">// 04 — what you get</span><span class="line"></span></div>
+      <h2 class="sec-title">the full system. personalized to you.</h2>
+      <div class="manifest" style="margin-top:18px">
+        <div class="mf"><span class="mk">▸</span><span class="mt"><b>your own personalized AI agent</b> <span>— built on your biology, not a template</span></span></div>
+        <div class="mf"><span class="mk">▸</span><span class="mt"><b>daily telegram check-ins</b> <span>— your agent texts you first every morning</span></span></div>
+        <div class="mf"><span class="mk">▸</span><span class="mt"><b>the self-maxxing protocol</b> <span>— the exact system Logan ran on himself for 121 days</span></span></div>
+        <div class="mf"><span class="mk">▸</span><span class="mt"><b>weekly voice note review from Logan</b> <span>— real feedback every sunday on your real data</span></span></div>
+        <div class="mf"><span class="mk">▸</span><span class="mt"><b>protocol drift detection</b> <span>— the system flags it before it becomes a problem</span></span></div>
+        <div class="mf"><span class="mk">▸</span><span class="mt"><b>phase 1 supplement stack</b> <span>— exactly what Logan used, tuned to your goals</span></span></div>
+        <div class="mf"><span class="mk">▸</span><span class="mt"><b>hard cap of 50 maxxers ever</b> <span>— this stays personal or it stops working</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="wrap">
+      <div class="sec-label"><span class="lbl">// 05 — questions</span><span class="line"></span></div>
+      <h2 class="sec-title">before you book.</h2>
+      <div style="margin-top:18px">
+        <div class="faq-item"><div class="faq-q">is this a chatbot?</div><div class="faq-a">no. it's a personalized AI agent built on your actual health data — it knows your bloodwork, body composition, and protocols. it doesn't give generic answers. it gives YOUR answers.</div></div>
+        <div class="faq-item"><div class="faq-q">do i need to know anything about AI?</div><div class="faq-a">no. you text it on telegram like you'd text a friend. it handles the complexity.</div></div>
+        <div class="faq-item"><div class="faq-q">what if i have a medical question?</div><div class="faq-a">the AI doesn't give medical advice. anything clinical gets escalated to you and your physician. this is coaching, not healthcare.</div></div>
+        <div class="faq-item"><div class="faq-q">can i cancel anytime?</div><div class="faq-a">yes. no contracts. no guilt trips. if it's not working, you leave.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="book" style="padding-bottom:96px">
+    <div class="wrap">
+      <div class="console frame">
+        <span class="lbl">// deploy</span>
+        <h2 style="margin-top:14px">ready to start mogging yourself?</h2>
+        <p class="desc">book a free 15-minute call. we'll look at where you are, where you want to be, and whether iMogging is the right system for you.</p>
+        <div class="price">
+          <span class="big num">$50</span><span class="per">/mo founding</span>
+          <span class="then">▸ $150/mo after cohort 1</span>
+        </div>
+        <a href="https://calendly.com/imogging/founding-spot" class="cta-link" target="_blank" rel="noopener">▸ book your 15-minute call</a>
+        <p class="sub">10 founding spots at $50/mo. we take 10 at a time. hard cap of 50 ever.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="f-brand">i<span>Mogging</span></div>
+      <div class="f-tag">the biological operating system. built by @logmogs.</div>
+      <div class="f-links">
+        <a href="https://instagram.com/logmogs" target="_blank" rel="noopener">@logmogs</a>
+        <a href="https://instagram.com/promptaholic.ai" target="_blank" rel="noopener">@promptaholic.ai</a>
+      </div>
+      <p class="disclaimer">iMogging is coaching, not medical care. nothing here is medical advice. consult your physician before changing your training, nutrition, supplement, or any protocol.</p>
+      <div class="f-copy">© 2026 iMogging · all rights reserved</div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var els = Array.prototype.slice.call(document.querySelectorAll('[data-count-to]'));
+      function fmt(v, dec, suffix){ return v.toFixed(dec) + (suffix || ''); }
+      function run(el){
+        var to = parseFloat(el.getAttribute('data-count-to'));
+        var from = parseFloat(el.getAttribute('data-count-from') || '0');
+        var dec = parseInt(el.getAttribute('data-dec') || '0', 10);
+        var suffix = el.getAttribute('data-suffix') || '';
+        if (reduce){ el.textContent = fmt(to, dec, suffix); return; }
+        var dur = 1100, t0 = null;
+        function step(ts){
+          if (!t0) t0 = ts;
+          var p = Math.min((ts - t0) / dur, 1);
+          var e = 1 - Math.pow(1 - p, 3);
+          el.textContent = fmt(from + (to - from) * e, dec, suffix);
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+      if (!('IntersectionObserver' in window)){ els.forEach(run); return; }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){ if (en.isIntersecting){ run(en.target); io.unobserve(en.target); } });
+      }, { threshold: 0.4 });
+      els.forEach(function(el){ io.observe(el); });
+    })();
+  </script>
 
 </body>
 </html>
