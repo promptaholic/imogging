@@ -1,0 +1,68 @@
+name: claude
+
+# Remote-publish pipeline for imogging.com
+# Base44 (or anyone) files a GitHub issue mentioning @claude with a plain-English
+# change request. Claude Code edits index.html on a working branch, then this
+# workflow fast-forwards master to that branch so GitHub Pages publishes it live
+# to imogging.com — with no human merge required.
+
+on:
+  issues:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  claude:
+    # Only spend minutes/credits when @claude is actually mentioned.
+    if: |
+      (github.event_name == 'issues' && contains(github.event.issue.body, '@claude')) ||
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude'))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Claude Code
+        id: claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          trigger_phrase: "@claude"
+          base_branch: master
+          # Guardrails live in the repo's CLAUDE.md (Claude Code reads it automatically),
+          # and are repeated in every Base44-generated issue body.
+          claude_args: |
+            --max-turns 20
+
+      # The action (on an issue) pushes Claude's commit to a new branch and CANNOT
+      # merge it itself. We fast-forward master to that branch so the change goes live.
+      - name: Publish to master and confirm on the issue
+        if: steps.claude.outputs.branch_name != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ steps.claude.outputs.branch_name }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+          echo "Claude pushed work to branch: ${BRANCH}"
+          git fetch origin "+refs/heads/${BRANCH}:refs/remotes/origin/${BRANCH}"
+          SHA="$(git rev-parse "refs/remotes/origin/${BRANCH}")"
+          # Fast-forward only — Claude branched from master, so this is clean.
+          # Never force-push master.
+          if git push origin "refs/remotes/origin/${BRANCH}:refs/heads/master"; then
+            gh issue comment "$ISSUE" --body "published to master — commit \`${SHA}\`. live at https://imogging.com within ~1 minute."
+            # Tidy up the working branch (best effort).
+            git push origin --delete "${BRANCH}" || true
+          else
+            gh issue comment "$ISSUE" --body "could not fast-forward master from \`${BRANCH}\` (master may have moved). the change is on that branch and needs a manual look."
+            exit 1
+          fi
